@@ -7,7 +7,7 @@
 </div>
 
 <div align="center">
-  <img src="https://i.imgur.com/YzPAcR1.png" alt="Sendify Logo" width="250" />
+  <img src="https://i.imgur.com/3ri7C3Q.png" alt="Sendify Logo" width="250" />
   <br />
   <h3>Transferência de arquivos bidirecional entre dispositivos móveis e desktop de forma simples e rápida.</h3>
 </div>
@@ -54,8 +54,8 @@ O projeto Sendify é composto por duas aplicações independentes que se comunic
       <td align="center"><strong>Aplicativo Desktop</strong></td>
     </tr>
     <tr>
-      <td><img src="https://i.imgur.com/yzLPO1F.png" alt="Mobile App" width="280" /></td>
-      <td><img src="https://imgur.com/a/leDhTmX" alt="Desktop App" width="500" /></td>
+      <td><img src="https://i.imgur.com/I6DXdpf.png" alt="Mobile App" width="280" /></td>
+      <td><img src="https://i.imgur.com/nGod14V.png" alt="Desktop App" width="500" /></td>
     </tr>
   </table>
 </div>
@@ -87,7 +87,7 @@ O projeto Sendify é composto por duas aplicações independentes que se comunic
 ### Aplicativo Desktop
 1. Clone o repositório
    ```bash
-   git clone https://github.com/seu-usuario/sendify.git
+   git clone https://github.com/TezottoWell/Sendify.git
    cd sendify/desktop-app
    ```
 
