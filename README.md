@@ -50,8 +50,8 @@ O projeto Sendify é composto por duas aplicações independentes que se comunic
 <div align="center">
   <table>
     <tr>
-      <td align="center"><strong>Aplicativo Mobile</strong></td>
       <td align="center"><strong>Aplicativo Desktop</strong></td>
+      <td align="center"><strong>Aplicativo Mobile</strong></td>
     </tr>
     <tr>
       <td><img src="https://i.imgur.com/I6DXdpf.png" alt="Desktop App" width="500" /></td>
