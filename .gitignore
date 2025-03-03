@@ -1,0 +1,106 @@
+# Dependências
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build
+/build/
+/dist/
+/web-build/
+/ios/build/
+/android/build/
+/android/app/build/
+/desktop-app/dist/
+/desktop-app/build/
+
+# React Native
+.expo/
+.expo-shared/
+.env
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+# Arquivos de configuração local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# iOS
+/ios/Pods/
+/ios/Podfile.lock
+/ios/*.xcworkspace
+/ios/*.xcodeproj/*
+!/ios/*.xcodeproj/project.pbxproj
+!/ios/*.xcodeproj/xcshareddata/
+/ios/build/
+
+# Android
+/android/.gradle
+/android/captures/
+/android/local.properties
+/android/app/release/
+/android/*.iml
+/android/.idea/
+/android/.DS_Store
+
+# Electron / Desktop
+/desktop-app/node_modules/
+/desktop-app/.DS_Store
+/desktop-app/.env
+/desktop-app/.env.local
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Editores / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# Logs e dados temporários
+*.log
+logs/
+tmp/
+temp/
+
+# Arquivos gerados em tempo de execução
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# Testes
+/coverage/
+.nyc_output/
+
+# Outros arquivos específicos de ambiente
+google-services.json
+GoogleService-Info.plist 

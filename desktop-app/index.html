@@ -1,0 +1,1000 @@
+<!-- index.html - Interface do aplicativo desktop -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sendify - Transferência de Arquivos</title>
+  <!-- Fonte do Google e ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    :root {
+      --primary: #1E88E5;
+      --primary-dark: #1565C0;
+      --primary-light: #BBDEFB;
+      --accent: #FF4081;
+      --accent-hover: #F50057;
+      --grey-light: #f5f7fa;
+      --grey: #eaeff5;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #fff;
+      --success: #4CAF50;
+      --error: #F44336;
+    }
+    
+    body {
+      background-color: var(--grey-light);
+      color: var(--text-dark);
+      padding: 0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    /* Sidebar e conteúdo principal */
+    .app-container {
+      display: flex;
+      flex: 1;
+      height: 100vh;
+    }
+    
+    /* Barra lateral com logo */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 15px 0;
+    }
+    
+    .logo-placeholder {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background-color: var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      font-size: 24px;
+      color: var(--primary);
+    }
+    
+    .app-name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 25px;
+    }
+    
+    .sidebar-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      opacity: 0.7;
+      font-weight: 600;
+    }
+    
+    .server-info {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .server-info p {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    
+    .ip-list {
+      list-style: none;
+      margin-top: 12px;
+    }
+    
+    .ip-list li {
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    
+    .ip-list li i {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+    
+    /* Área principal */
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+    
+    /* Cards de Dispositivos e Arquivos */
+    .content-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      flex: 1;
+      overflow: auto;
+    }
+    
+    .card {
+      background-color: var(--white);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-header {
+      padding: 20px;
+      background-color: var(--white);
+      border-bottom: 1px solid var(--grey);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+    }
+    
+    .card-title i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+    
+    .card-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .cards-row {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 25px;
+      min-height: 300px;
+    }
+    
+    .devices-card {
+      width: 350px;
+      flex-shrink: 0;
+    }
+    
+    .files-card {
+      flex: 1;
+      min-height: 300px;
+      max-height: none;
+    }
+    
+    .send-files-card {
+      flex: 1;
+      min-height: 250px;
+    }
+    
+    .files-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    /* Dispositivos */
+    .device-item {
+      padding: 16px;
+      border-radius: 12px;
+      background-color: var(--grey-light);
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+    
+    .device-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .device-item.active {
+      background-color: var(--primary-light);
+      border-left: 4px solid var(--primary);
+    }
+    
+    .device-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      font-size: 18px;
+    }
+    
+    .device-info {
+      flex: 1;
+    }
+    
+    .device-name {
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: var(--text-dark);
+    }
+    
+    .device-type {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    
+    /* Arquivos */
+    .file-item {
+      padding: 16px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      background-color: var(--grey-light);
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    
+    .file-item:hover {
+      background-color: var(--grey);
+    }
+    
+    .file-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      margin-right: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      color: var(--white);
+    }
+    
+    .file-icon.image {
+      background-color: #4CAF50;
+    }
+    
+    .file-icon.document {
+      background-color: #2196F3;
+    }
+    
+    .file-icon.pdf {
+      background-color: #F44336;
+    }
+    
+    .file-icon.archive {
+      background-color: #FF9800;
+    }
+    
+    .file-icon.video {
+      background-color: #9C27B0;
+    }
+    
+    .file-icon.audio {
+      background-color: #00BCD4;
+    }
+    
+    .file-icon.other {
+      background-color: #607D8B;
+    }
+    
+    .file-info {
+      flex: 1;
+    }
+    
+    .file-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-dark);
+    }
+    
+    .file-details {
+      font-size: 13px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+    }
+    
+    .file-details i {
+      font-size: 14px;
+      margin-right: 5px;
+    }
+    
+    .file-size-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      margin-right: 10px;
+    }
+    
+    .file-actions {
+      display: flex;
+    }
+    
+    .file-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+    
+    .file-action-btn i {
+      margin-right: 5px;
+    }
+    
+    .file-action-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    /* Rodapé - Pasta de download */
+    .download-folder-info {
+      background-color: var(--grey-light);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--grey);
+    }
+    
+    .folder-path {
+      display: flex;
+      align-items: center;
+    }
+    
+    .folder-path i {
+      color: var(--primary);
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    
+    .change-folder-btn {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.2s;
+    }
+    
+    .change-folder-btn i {
+      margin-right: 5px;
+    }
+    
+    .change-folder-btn:hover {
+      background-color: var(--accent-hover);
+    }
+    
+    /* Mensagens de status */
+    .status-bar {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 15px 25px;
+      font-size: 14px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    
+    .status-bar.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .status-bar i {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+    
+    .status-bar.success {
+      background-color: var(--success);
+      color: white;
+    }
+    
+    .status-bar.error {
+      background-color: var(--error);
+      color: white;
+    }
+    
+    /* Estado vazio */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px;
+      color: var(--text-light);
+      text-align: center;
+    }
+    
+    .empty-state i {
+      font-size: 50px;
+      color: var(--grey);
+      margin-bottom: 20px;
+    }
+    
+    .empty-state p {
+      font-size: 16px;
+      max-width: 300px;
+      line-height: 1.5;
+    }
+    
+    /* Estilos para a nova seção */
+    .send-files-card {
+      margin-top: 20px;
+    }
+    
+    .send-files-actions {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .primary-btn {
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    }
+    
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .help-text {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-light);
+      text-align: center;
+    }
+    
+    .help-text i {
+      color: var(--primary);
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Barra lateral com logo e informações do servidor -->
+    <div class="sidebar">
+      <div class="logo-container">
+        <div class="logo-placeholder">
+          <i class="fas fa-paper-plane"></i>
+        </div>
+        <div class="app-name">Sendify</div>
+      </div>
+      
+      <div class="sidebar-section">
+        <div class="sidebar-title">Servidor</div>
+        <div class="server-info">
+          <p><i class="fas fa-server"></i> Status: <span style="color: #4CAF50;">Ativo</span></p>
+          <p><i class="fas fa-network-wired"></i> Porta: <span>3000</span></p>
+          <p><i class="fas fa-wifi"></i> IP da Rede Local:</p>
+          <ul class="ip-list" id="ip-list">
+            <li><i class="fas fa-circle-notch fa-spin"></i> Carregando...</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <div class="sidebar-title">Instruções</div>
+        <div style="padding: 0 10px; font-size: 14px; color: rgba(255,255,255,0.8);">
+          <p style="margin-bottom: 10px;">Use o Sendify no seu dispositivo para se conectar a este computador usando o endereço IP da rede local acima.</p>
+          <p>Importante: Seu dispositivo deve estar conectado à mesma rede Wi-Fi que o computador.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Conteúdo principal -->
+    <div class="main-content">
+      <div class="content-header">
+        <h1 class="page-title">Transferência de Arquivos</h1>
+      </div>
+      
+      <div class="content-cards">
+        <!-- Primeira linha com dispositivos e arquivos recebidos -->
+        <div class="cards-row">
+          <!-- Cartão de Dispositivos -->
+          <div class="card devices-card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fas fa-mobile-alt"></i>
+                Dispositivos Conectados
+              </div>
+            </div>
+            <div class="card-content" id="devices-list">
+              <div class="empty-state">
+                <i class="fas fa-satellite-dish"></i>
+                <p>Nenhum dispositivo conectado ainda. Aguardando conexões...</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Cartão de Arquivos -->
+          <div class="card files-card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fas fa-file-alt"></i>
+                Arquivos Recebidos
+              </div>
+            </div>
+            <div class="card-content">
+              <div id="files-list" class="files-list">
+                <div class="empty-state">
+                  <i class="fas fa-file-import"></i>
+                  <p>Nenhum arquivo recebido. Os arquivos enviados aparecerão aqui.</p>
+                </div>
+              </div>
+              
+              <div class="download-folder-info">
+                <div class="folder-path">
+                  <i class="fas fa-folder-open"></i>
+                  <span id="download-path">Carregando...</span>
+                </div>
+                <button id="change-folder-btn" class="change-folder-btn">
+                  <i class="fas fa-sync-alt"></i>
+                  Alterar Pasta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Segunda linha com o cartão de envio de arquivos -->
+        <div class="card send-files-card">
+          <div class="card-header">
+            <div class="card-title">
+              <i class="fas fa-paper-plane"></i>
+              Enviar Arquivos para Dispositivos
+            </div>
+          </div>
+          <div class="card-content">
+            <div id="files-to-send-list" class="files-list">
+              <div class="empty-state">
+                <i class="fas fa-upload"></i>
+                <p>Nenhum arquivo selecionado para envio. Selecione arquivos para disponibilizá-los aos dispositivos.</p>
+              </div>
+            </div>
+            
+            <div class="send-files-actions">
+              <button id="select-files-btn" class="primary-btn">
+                <i class="fas fa-file-upload"></i>
+                Selecionar Arquivos para Envio
+              </button>
+              <p class="help-text">
+                <i class="fas fa-info-circle"></i>
+                Os dispositivos móveis conectados poderão baixar os arquivos selecionados.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="status-message" class="status-bar"></div>
+  
+  <script>
+    // Electron IPC disponível através do preload
+    const { ipcRenderer } = require('electron');
+    const path = require('path');
+    const fs = require('fs');
+    const os = require('os');
+    
+    // Elementos DOM
+    const ipListElement = document.getElementById('ip-list');
+    const devicesListElement = document.getElementById('devices-list');
+    const filesListElement = document.getElementById('files-list');
+    const downloadPathElement = document.getElementById('download-path');
+    const changeFolderButton = document.getElementById('change-folder-btn');
+    const statusMessageElement = document.getElementById('status-message');
+    
+    // Estado da aplicação
+    let downloadFolder = path.join(os.homedir(), 'Downloads', 'Sendify');
+    let connectedDevices = [];
+    let receivedFiles = [];
+    let filesToSend = []; // Nova lista para arquivos a serem enviados
+    
+    // Atualizar a lista de endereços IP
+    ipcRenderer.on('ip-addresses', (event, ipAddresses) => {
+      ipListElement.innerHTML = '';
+      
+      if (ipAddresses.length === 0) {
+        ipListElement.innerHTML = '<li><i class="fas fa-exclamation-triangle"></i> Nenhum endereço IP da rede local encontrado. Verifique sua conexão Wi-Fi.</li>';
+        return;
+      }
+      
+      ipAddresses.forEach(ip => {
+        const li = document.createElement('li');
+        li.innerHTML = `<i class="fas fa-network-wired"></i> ${ip}`;
+        ipListElement.appendChild(li);
+      });
+    });
+    
+    // Atualizar a pasta de download
+    function updateDownloadPath(newPath) {
+      downloadFolder = newPath;
+      downloadPathElement.textContent = newPath;
+    }
+    
+    // Inicialmente, configurar a pasta de download
+    updateDownloadPath(downloadFolder);
+    
+    // Atualizar a lista de dispositivos
+    ipcRenderer.on('device-connected', (event, data) => {
+      connectedDevices = data.devices;
+      updateDevicesList();
+      showStatusMessage('Novo dispositivo conectado!', 'success');
+    });
+    
+    // Atualizar a lista de arquivos
+    ipcRenderer.on('file-received', (event, fileData) => {
+      receivedFiles.unshift(fileData); // Adicionar ao início da lista (mais recente primeiro)
+      updateFilesList();
+      showStatusMessage(`Arquivo recebido: ${fileData.name}`, 'success');
+    });
+    
+    // Resposta à seleção de diretório
+    ipcRenderer.on('directory-selected', (event, newPath) => {
+      updateDownloadPath(newPath);
+      showStatusMessage('Pasta de download alterada com sucesso!', 'success');
+    });
+    
+    // Mostrar mensagem de status temporária
+    function showStatusMessage(message, type) {
+      const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+      statusMessageElement.innerHTML = `<i class="${icon}"></i> ${message}`;
+      statusMessageElement.className = `status-bar ${type} show`;
+      
+      setTimeout(() => {
+        statusMessageElement.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Obter ícone baseado no tipo de arquivo
+    function getFileIcon(fileType) {
+      if (!fileType) return { icon: 'fas fa-file', type: 'other' };
+      
+      if (fileType.startsWith('image/')) {
+        return { icon: 'fas fa-file-image', type: 'image' };
+      } else if (fileType.startsWith('video/')) {
+        return { icon: 'fas fa-file-video', type: 'video' };
+      } else if (fileType.startsWith('audio/')) {
+        return { icon: 'fas fa-file-audio', type: 'audio' };
+      } else if (fileType === 'application/pdf') {
+        return { icon: 'fas fa-file-pdf', type: 'pdf' };
+      } else if (fileType.includes('word') || fileType.includes('document') || fileType.includes('text')) {
+        return { icon: 'fas fa-file-word', type: 'document' };
+      } else if (fileType.includes('zip') || fileType.includes('compressed') || fileType.includes('tar') || fileType.includes('rar')) {
+        return { icon: 'fas fa-file-archive', type: 'archive' };
+      } else {
+        return { icon: 'fas fa-file', type: 'other' };
+      }
+    }
+    
+    // Atualizar a lista de dispositivos na interface
+    function updateDevicesList() {
+      if (connectedDevices.length === 0) {
+        devicesListElement.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-satellite-dish"></i>
+            <p>Nenhum dispositivo conectado ainda. Aguardando conexões...</p>
+          </div>
+        `;
+        return;
+      }
+      
+      devicesListElement.innerHTML = '';
+      
+      connectedDevices.forEach(device => {
+        const deviceIcon = device.type.toLowerCase().includes('android') ? 'fas fa-android' : 
+                          device.type.toLowerCase().includes('iphone') || device.type.toLowerCase().includes('ios') ? 'fas fa-apple' : 
+                          'fas fa-mobile-alt';
+                          
+        const deviceItem = document.createElement('div');
+        deviceItem.className = 'device-item';
+        deviceItem.innerHTML = `
+          <div class="device-icon">
+            <i class="${deviceIcon}"></i>
+          </div>
+          <div class="device-info">
+            <div class="device-name">${device.name}</div>
+            <div class="device-type">${device.type}</div>
+          </div>
+        `;
+        
+        deviceItem.addEventListener('click', () => {
+          // Selecionar dispositivo (para implementações futuras)
+          document.querySelectorAll('.device-item').forEach(el => el.classList.remove('active'));
+          deviceItem.classList.add('active');
+        });
+        
+        devicesListElement.appendChild(deviceItem);
+      });
+    }
+    
+    // Atualizar a lista de arquivos na interface
+    function updateFilesList() {
+      if (receivedFiles.length === 0) {
+        filesListElement.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-file-import"></i>
+            <p>Nenhum arquivo recebido. Os arquivos enviados aparecerão aqui.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      filesListElement.innerHTML = '';
+      
+      receivedFiles.forEach(file => {
+        const fileSize = formatFileSize(file.size);
+        const fileDate = new Date(file.receivedAt).toLocaleString();
+        const fileIconInfo = getFileIcon(file.type);
+        
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+          <div class="file-icon ${fileIconInfo.type}">
+            <i class="${fileIconInfo.icon}"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">${file.name}</div>
+            <div class="file-details">
+              <span class="file-size-badge">${fileSize}</span>
+              <i class="fas fa-clock"></i> ${fileDate}
+            </div>
+          </div>
+          <div class="file-actions">
+            <button class="file-action-btn open-file-btn">
+              <i class="fas fa-external-link-alt"></i> Abrir
+            </button>
+            <button class="file-action-btn open-folder-btn">
+              <i class="fas fa-folder-open"></i> Localizar
+            </button>
+          </div>
+        `;
+        
+        // Adicionar manipuladores de eventos aos botões
+        const openFileBtn = fileItem.querySelector('.open-file-btn');
+        const openFolderBtn = fileItem.querySelector('.open-folder-btn');
+        
+        openFileBtn.addEventListener('click', () => {
+          openFile(file.path);
+        });
+        
+        openFolderBtn.addEventListener('click', () => {
+          showInFolder(file.path);
+        });
+        
+        filesListElement.appendChild(fileItem);
+      });
+    }
+    
+    // Nova função para atualizar a lista de arquivos para envio
+    function updateFilesToSendList() {
+      const filesListElement = document.getElementById('files-to-send-list');
+      
+      if (filesToSend.length === 0) {
+        filesListElement.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-upload"></i>
+            <p>Nenhum arquivo selecionado para envio. Selecione arquivos para disponibilizá-los aos dispositivos.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      filesListElement.innerHTML = '';
+      
+      filesToSend.forEach(file => {
+        const fileSize = formatFileSize(file.size);
+        const fileDate = new Date(file.addedAt).toLocaleString();
+        const fileIconInfo = getFileIcon(file.type);
+        
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+          <div class="file-icon ${fileIconInfo.type}">
+            <i class="${fileIconInfo.icon}"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">${file.name}</div>
+            <div class="file-details">
+              <span class="file-size-badge">${fileSize}</span>
+              <i class="fas fa-clock"></i> ${fileDate}
+            </div>
+          </div>
+          <div class="file-actions">
+            <button class="file-action-btn remove-file-btn" data-id="${file.id}">
+              <i class="fas fa-trash-alt"></i> Remover
+            </button>
+          </div>
+        `;
+        
+        // Adicionar manipulador para o botão de remover
+        const removeBtn = fileItem.querySelector('.remove-file-btn');
+        removeBtn.addEventListener('click', (e) => {
+          const fileId = e.target.closest('.remove-file-btn').dataset.id;
+          removeFileToSend(fileId);
+        });
+        
+        filesListElement.appendChild(fileItem);
+      });
+    }
+    
+    // Função para remover um arquivo da lista de envio
+    function removeFileToSend(fileId) {
+      fetch(`http://localhost:3000/file/${fileId}`, {
+        method: 'DELETE'
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            filesToSend = filesToSend.filter(f => f.id !== fileId);
+            updateFilesToSendList();
+            showStatusMessage('Arquivo removido da lista de envio', 'success');
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao remover arquivo:', error);
+          showStatusMessage('Erro ao remover arquivo', 'error');
+        });
+    }
+    
+    // Evento para selecionar arquivos para envio
+    document.getElementById('select-files-btn').addEventListener('click', () => {
+      ipcRenderer.send('select-files-to-send');
+    });
+    
+    // Ouvir quando novos arquivos forem adicionados para envio
+    ipcRenderer.on('file-ready-to-send', (event, fileData) => {
+      filesToSend.push({
+        ...fileData,
+        addedAt: new Date()
+      });
+      updateFilesToSendList();
+      showStatusMessage(`Arquivo "${fileData.name}" disponível para envio`, 'success');
+    });
+    
+    // Ouvir quando arquivos forem removidos da lista de envio
+    ipcRenderer.on('file-removed', (event, data) => {
+      filesToSend = filesToSend.filter(f => f.id !== data.fileId);
+      updateFilesToSendList();
+    });
+    
+    // Formatar tamanho do arquivo para exibição
+    function formatFileSize(sizeInBytes) {
+      if (sizeInBytes < 1024) {
+        return sizeInBytes + ' B';
+      } else if (sizeInBytes < 1024 * 1024) {
+        return (sizeInBytes / 1024).toFixed(1) + ' KB';
+      } else if (sizeInBytes < 1024 * 1024 * 1024) {
+        return (sizeInBytes / (1024 * 1024)).toFixed(1) + ' MB';
+      } else {
+        return (sizeInBytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+      }
+    }
+    
+    // Abrir arquivo com o aplicativo padrão
+    function openFile(filePath) {
+      const { shell } = require('electron');
+      shell.openPath(filePath).then(error => {
+        if (error) {
+          showStatusMessage(`Erro ao abrir arquivo: ${error}`, 'error');
+        }
+      });
+    }
+    
+    // Mostrar arquivo na pasta
+    function showInFolder(filePath) {
+      const { shell } = require('electron');
+      shell.showItemInFolder(filePath);
+    }
+    
+    // Manipulador para botão de alterar pasta
+    changeFolderButton.addEventListener('click', () => {
+      ipcRenderer.send('select-directory');
+    });
+    
+    // Inicializar as listas
+    updateDevicesList();
+    updateFilesList();
+    updateFilesToSendList();
+  </script>
+</body>
+</html>
