@@ -187,5 +187,5 @@ Para questões, sugestões ou feedback, por favor abra uma issue no repositório
 
 <div align="center">
   <p>Desenvolvido com ❤️ usando React Native, Expo e Electron</p>
-  <p>© 2023 Sendify. Todos os direitos reservados.</p>
+  <p>© 2025 Sendify. Todos os direitos reservados.</p>
 </div> 
